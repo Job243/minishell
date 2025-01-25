@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:00 by jmafueni          #+#    #+#             */
-/*   Updated: 2023/11/21 16:52:30 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:50:56 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 int	ft_isprint(int c)
 {

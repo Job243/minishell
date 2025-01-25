@@ -6,7 +6,7 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:30:41 by jmafueni          #+#    #+#             */
-/*   Updated: 2024/11/23 22:03:31 by jmafueni         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:59:58 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			ft_isalnum(int c);
 int			ft_isascii(int c);
 int			ft_isprint(int c);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
+int			ft_printf(int fd, const char *str, ...);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
@@ -59,7 +60,16 @@ void		*ft_memset(void *s, int c, size_t n);
 
 long int	ft_atoi(const char *nptr);
 
-typedef struct s_list
+/*printf*/
+int			ft_hexa_up(unsigned long int i, int fd);
+size_t		str_size2(unsigned int n);
+char		*ft_itoa2(unsigned int n);
+int			ft_hexa(unsigned long int i, int fd);
+int			ft_print_char(char c, int fd);
+int			ft_print_str(char *str, int fd);
+int			ft_print_str2(char *str, int fd);
+int			ft_print_ptr(void *ptr, int fd);
+/*typedef struct s_list
 {
 	char			*content;
 	struct s_list	*next;
@@ -73,6 +83,6 @@ void		ft_lstiter(t_list *lst, void (*f)(void *));
 // t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list		*ft_lstnew(void *content);
-int			ft_lstsize(t_list *lst);
+int			ft_lstsize(t_list *lst);*/
 
 #endif

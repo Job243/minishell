@@ -6,55 +6,70 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 20:32:06 by jmafueni          #+#    #+#             */
-/*   Updated: 2024/12/10 21:37:23 by jmafueni         ###   ########.fr       */
+/*   Updated: 2025/01/22 19:11:24 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int error_pipe(char *s)
+int	check_after_pipe(char *s, int len)
 {
-	int i;
-	int flag;
+	while (is_space(s[len]))
+		len--;
+	if (is_pipe(s[len]))
+	{	
+		ft_printf(2, "bash: synthax error near unexpected token `|'\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	error_pipe(char *s, int flag)
+{
+	int	i;
 
 	i = 0;
 	while (s[i])
 	{
-		flag = 0;
-		while (s[i] && !is_pipe(s[i]))
+		while (s[i] && !is_pipe(s[i]) && !is_quote(s[i]))
 		{
 			if (!is_space(s[i]) && !is_redir(s[i]))
 				flag = 1;
-			if (is_redir (s[i]) && flag)
+			if (is_redir(s[i]) && flag)
 				flag = 0;
 			i++;
 		}
+		if (is_quote(s[i]))
+			return (error_pipe(&s[i + inside_quotes(&s[i]) + 1], 1));
 		if (!flag)
 		{
-			printf("bash: synthax error near unexpected token `|'\n");
+			ft_printf(2, "bash: synthax error near unexpected token `|'\n");
 			return (1);
 		}
 		if (s[i])
 			i++;
 	}
-	return (0);
+	return (check_after_pipe(s, i - 1));
 }
 
-int error_redir(char *s)
+int	error_redir(char *s)
 {
-	int i;
+	int	i;
+
 	i = 0;
+	if (!s[i])
+		return (0);
 	while (s[i])
 	{
-		while (s[i] && !is_redir(s[i]))
+		while (s[i] && !is_redir(s[i]) && !is_quote(s[i]))
 			i++;
+		if (is_quote(s[i]))
+			return (error_redir(&s[i + inside_quotes(&s[i]) + 1]));
 		if (!s[i])
 			return (0);
-		i++;
-		if (is_redir(s[i]))
+		if (is_redir(s[++i]))
 		{
-			i++;
-			if (!double_redir(&s[i]))
+			if (!double_redir(&s[++i]))
 				return (1);
 		}
 		while (s[i] && is_space(s[i]))
@@ -62,7 +77,7 @@ int error_redir(char *s)
 		if (!s[i] || is_redir(s[i]))
 			break ;
 	}
-	printf("bash: synthax error near unexpected token `newline'\n");
+	ft_printf(2, "bash: synthax error near unexpected token `newline'\n");
 	return (1);
 }
 
@@ -75,15 +90,15 @@ int	double_redir(char *s)
 		i++;
 	if (!s[i])
 	{
-		printf("bash: synthax error near unexpected token `newline'\n");
+		ft_printf(2, "bash: synthax error near unexpected token `newline'\n");
 		return (0);
 	}
 	if (is_redir(s[i]))
 	{
 		if (s[i] == '>')
-			printf("bash: syntax error near unexpected token `>'\n");
+			ft_printf(2, "bash: syntax error near unexpected token `>>'\n");
 		if (s[i] == '<')
-			printf("bash: syntax error near unexpected token `<'\n");
+			ft_printf(2, "bash: syntax error near unexpected token `<<'\n");
 		return (0);
 	}
 	return (1);
@@ -92,14 +107,12 @@ int	double_redir(char *s)
 int	parse_error(char *s)
 {
 	if (!s || is_empty(s))
-		return (0);
+		return (-1);
 	if (!quotes_closed(s))
 		return (0);
 	if (error_redir(s))
 		return (0);
-	if (error_pipe(s))
+	if (error_pipe(s, 0))
 		return (0);
 	return (1);
 }
-
-

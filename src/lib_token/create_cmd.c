@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.c                                              :+:      :+:    :+:   */
+/*   create_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 14:18:20 by jmafueni          #+#    #+#             */
-/*   Updated: 2024/12/10 15:54:06 by jmafueni         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:31:51 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_clear_cmd(t_cmd *cmd)
-{// a revoir si pb de leak
-	t_cmd	*tmp;
-
-	while (cmd)
-	{
-		tmp = cmd->next;
-		free(cmd);
-		cmd = tmp;
-	}
-}
-
-
-void	ft_lstadd_back_cmd(t_cmd **cmd, t_cmd *new)
+int	ft_lstadd_back_cmd(t_cmd **cmd, t_cmd *new)
 {
 	if (!cmd || !new)
-		return ;
+		return (0);
 	if (*cmd)
-		ft_lstlast(*cmd)->next = new;
+		ft_lstlast_cmd(*cmd)->next = new;
 	else
 		*cmd = new;
+	return (1);
 }
 
 t_cmd	*ft_lstlast_cmd(t_cmd *cmd)
@@ -42,37 +30,14 @@ t_cmd	*ft_lstlast_cmd(t_cmd *cmd)
 	return (cmd);
 }
 
-t_cmd	*new_cmd(int n)
+t_cmd	*new_cmd(void)
 {
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->redir = NULL;
-	cmd->tab = NULL;
-	cmd->next = NULL;
+	ft_memset(cmd, 0, sizeof(t_cmd));
+	cmd->is_empty_cmd = 1;
 	return (cmd);
 }
-
-int		cmd_size(t_cmd *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd)
-	{
-		cmd = cmd->next;
-		i++;
-	}
-	return (i);
-}
-
-// void printcmd(t_cmd *cmd)
-// {
-// 	while(cmd)
-// 	{
-// 		printf("word is %s type is %d\n", cmd->str, cmd->type);
-// 		cmd = cmd->next;
-// 	}
-// }

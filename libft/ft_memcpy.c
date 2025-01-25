@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 13:40:15 by jmafueni          #+#    #+#             */
-/*   Updated: 2023/12/05 18:55:52 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:51:38 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {

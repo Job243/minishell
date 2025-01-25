@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 16:49:17 by jmafueni          #+#    #+#             */
-/*   Updated: 2023/11/22 14:13:37 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:53:11 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 size_t	ft_strlcpy(char *des, const char *src, size_t size)
 {

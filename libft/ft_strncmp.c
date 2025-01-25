@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 19:09:18 by jmafueni          #+#    #+#             */
-/*   Updated: 2023/11/21 17:04:37 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:53:28 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

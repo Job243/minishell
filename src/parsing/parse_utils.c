@@ -6,7 +6,7 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 21:28:37 by jmafueni          #+#    #+#             */
-/*   Updated: 2024/12/11 22:12:40 by jmafueni         ###   ########.fr       */
+/*   Updated: 2025/01/24 00:28:54 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,24 @@ char	*ft_strndup(const char *s, size_t n)
 	return (str);
 }
 
-// char	*ft_trimquote(char *s)
-// {
-// 	int		i;
-// 	char	*res;
-
-// 	i = 0;
-// 	res = (char *)malloc(sizeof(char) * (len_trimquote(s) + 1));
-// 	if (!res)
-// 		return (NULL);
-// 	while (s[i])
-// 	{
-
-// 	}
-// }
-
 int	count_separator(char *str)
 {
-	if (is_separators(str[1]))
-		return (1);
-	return (0);
+	int	i;
+
+	i = 0;
+	if (is_pipe(str[0]))
+		return (0);
+	while (is_redir(str[i]))
+		i++;
+	while (is_space(str[i]))
+		i++;
+	while (!is_space(str[i]) && !is_separators(str[i]) && str[i])
+	{
+		if (is_quote(str[i]))
+			i += inside_quotes(&str[i]);
+		i++;
+	}
+	return (i - 1);
 }
 
 int	word_counting(char *str)
@@ -69,7 +67,7 @@ int	word_counting(char *str)
 			d_quote = !d_quote;
 		if (is_separators(str[i]) && !s_quote && !d_quote)
 			break ;
-		if (is_space(str[i]) && is_quote(str[i + 1]))
+		if (is_space(str[i]) && !s_quote && !d_quote)
 			break ;
 		i++;
 	}
@@ -89,7 +87,7 @@ int	countwords(char *str)
 			i++;
 		if (is_quote(str[i]))
 			i += inside_quotes(&str[i]);
-		else if(is_separators(str[i]))
+		else if (is_separators(str[i]))
 			i += count_separator(&str[i]);
 		else if (str[i])
 			i += word_counting(&str[i]);
@@ -100,4 +98,10 @@ int	countwords(char *str)
 		}
 	}
 	return (count);
+}
+
+void	check_parse_error(int parse, t_data *data)
+{
+	if (parse == 0)
+		data->status = 2;
 }

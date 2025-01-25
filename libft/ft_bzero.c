@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:55:48 by jmafueni          #+#    #+#             */
-/*   Updated: 2023/11/12 17:54:20 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:50:08 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -21,6 +21,8 @@ void	ft_bzero(void *s, size_t n)
 	m = (unsigned char *)s;
 	c = '\0';
 	i = 0;
+	if (!m)
+		return ;
 	while (i < n)
 	{
 		m[i] = c;
@@ -33,7 +35,7 @@ void	ft_bzero(void *s, size_t n)
 	char	buffer[10];
 
 	ft_bzero(buffer, sizeof(buffer));
-	for (int i = 0; i < sizeof(buffer); ++i) 
+	for (int i = 0; i < sizeof(buffer); ++i)
 	{
 		printf("%c", buffer[i]);
 	}

@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:25:24 by jmafueni          #+#    #+#             */
-/*   Updated: 2024/06/17 15:32:39 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:50:15 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 void	ft_free_split(char **tab)
 {
@@ -25,4 +25,5 @@ void	ft_free_split(char **tab)
 		i++;
 	}
 	free(tab);
+	tab = NULL;
 }

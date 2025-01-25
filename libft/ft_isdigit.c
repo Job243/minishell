@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:24:41 by jmafueni          #+#    #+#             */
-/*   Updated: 2023/11/09 16:40:24 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:50:48 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 #include <ctype.h>
 
 int	ft_isdigit(int c)

@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:28:49 by jmafueni          #+#    #+#             */
-/*   Updated: 2023/12/04 17:25:01 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:53:44 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 static int	ft_charset(char c, const char *s)
 {
@@ -18,7 +18,7 @@ static int	ft_charset(char c, const char *s)
 
 	i = 0;
 	while (s[i])
-	{	
+	{
 		if (s[i] == c)
 			return (1);
 		i++;

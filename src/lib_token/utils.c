@@ -6,7 +6,7 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 20:53:06 by jmafueni          #+#    #+#             */
-/*   Updated: 2024/12/03 20:27:52 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/20 23:34:59 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int	is_empty(char *s)
 
 int	is_separators(char c)
 {
-	if (c == '|' || c == '<' || c =='>')
+	if (c == '|' || c == '<' || c == '>')
 		return (1);
 	return (0);
 }
 
 int	is_redir(char c)
 {
-	if ( c == '<' || c == '>')
+	if (c == '<' || c == '>')
 		return (1);
 	return (0);
 }

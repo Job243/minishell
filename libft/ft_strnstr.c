@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 21:35:19 by jmafueni          #+#    #+#             */
-/*   Updated: 2024/11/19 17:17:38 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:53:34 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 #include <bsd/string.h>
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)

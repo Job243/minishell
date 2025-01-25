@@ -6,34 +6,24 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 21:29:57 by jmafueni          #+#    #+#             */
-/*   Updated: 2024/12/11 22:12:40 by jmafueni         ###   ########.fr       */
+/*   Updated: 2025/01/10 20:57:42 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	extract_word_in_quote(char *s, t_token *token)
+int	check_token(t_token *token)
 {
-	int	i;
-	int	flag;
-
-	i = 0;
-	if (s[i] == '\'')
-		flag = 1;
-	else
-		flag = 2;
-	i++;
-	while (s[i])
+	while (token)
 	{
-		if  (((flag == 1 && s[i] == '\'') || (flag == 2 && s[i] == '"')) && (is_space(s[i + 1]) || is_separators(s[i + 1])))
-			break ;
-		i++;
+		if (!token->str)
+		{
+			ft_clear_token(token);
+			return (0);
+		}
+		token = token->next;
 	}
-	token->str = strndup(s + 1, i - 2);
-	token->type = WORD;
-	if (!s[i])
-		i--;
-	return (i);
+	return (1);
 }
 
 int	extract_separator(char *s, t_token *token)
@@ -42,18 +32,25 @@ int	extract_separator(char *s, t_token *token)
 
 	i = 0;
 	if (s[i] == '|')
+	{
 		token->type = PIPE;
-	while (s[i] && is_separators(s[i]))
+		token->str = ft_strndup(s, 1);
+		return (1);
+	}
+	while (s[i] && is_redir(s[i]))
 		i++;
-	token->str = strndup(s, i);
-	if (i == 2 && token->str[0] == '>')
-		token->type = APPOUTREDIR;
-	else if (i == 2 && token->str[0] == '<')
-		token->type = HEREDOC;
-	else if (i == 1 && token->str[0] == '>')
-		token->type = OUTREDIR;
-	else
-		token->type = INREDIR;
+	while (s[i] && is_space(s[i]))
+		i++;
+	while (s[i] && !is_space(s[i]) && !is_separators(s[i]))
+	{
+		if (is_quote(s[i]))
+			i += inside_quotes(&s[i]);
+		i++;
+	}
+	token->str = ft_strndup(s, i);
+	if (!token->str)
+		return (i);
+	assign_redir_type(token);
 	return (i);
 }
 
@@ -72,15 +69,13 @@ int	extract(char *s, t_token *token)
 			s_quote = !s_quote;
 		if (s[i] == '"' && !s_quote)
 			d_quote = !d_quote;
-		if (is_separators(s[i]) && !s_quote && !d_quote)
+		if (is_separators(s[i]) && !d_quote && !s_quote)
 			break ;
-		if (is_space(s[i]) && is_quote(s[i + 1]))
+		if (is_space(s[i]) && !s_quote && !d_quote)
 			break ;
 		i++;
 	}
-	token->str = strndup(s, i);
-	// if (quote_checking(token->str))
-	// 	token->str = ft_trimquote(token->str);
+	token->str = ft_strndup(s, i);
 	token->type = WORD;
 	return (i);
 }
@@ -91,14 +86,12 @@ void	extract_word(t_token *token, char *s)
 	int	start;
 
 	i = 0;
-	while (s[i])
+	while (s[i] && token)
 	{
-		while(is_space(s[i]))
+		while (is_space(s[i]))
 			i++;
 		start = i;
-		if (is_quote(s[i]))
-			i = start + extract_word_in_quote(&s[i], token) + 1;
-		else if (is_separators(s[i]))
+		if (is_separators(s[i]))
 			i = start + extract_separator(&s[i], token);
 		else if (s[i])
 			i = start + extract(&s[i], token);
@@ -107,25 +100,28 @@ void	extract_word(t_token *token, char *s)
 	}
 }
 
-
-t_token	*get_token(char *s)
+t_token	*get_token(char *s, t_env *env)
 {
-	int	i;
-	int	word_count;
+	int		i;
+	int		word_count;
 	t_token	*token;
 
 	i = 0;
 	token = NULL;
 	word_count = countwords(s);
-	printf("%d\n", word_count);
 	while (i < word_count)
 	{
 		if (i == 0)
-			token = new_token(i);
-		else if (!token || !ft_lstadd_back(&token, new_token(i)))
+			token = new_token(env);
+		else if (!token || !ft_lstadd_back(&token, new_token(env)))
+		{
 			ft_clear_token(token);
+			return (NULL);
+		}
 		i++;
 	}
 	extract_word(token, s);
+	if (!check_token(token))
+		return (NULL);
 	return (token);
 }

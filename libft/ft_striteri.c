@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 13:39:30 by jmafueni          #+#    #+#             */
-/*   Updated: 2023/11/21 16:47:40 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:52:45 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {

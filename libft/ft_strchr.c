@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 18:13:46 by jmafueni          #+#    #+#             */
-/*   Updated: 2023/11/21 17:06:17 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:52:34 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {

@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:02:11 by jmafueni          #+#    #+#             */
-/*   Updated: 2024/07/02 15:00:02 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:52:27 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 size_t	ft_countwords(const char *s, char c)
 {
@@ -74,6 +74,8 @@ static char	**ft_extractwords(char **tab, const char *s, char c)
 		if (start < i)
 		{
 			tab[j] = ft_strndup(s + start, i - start);
+			if (!tab[j])
+				return (ft_free_split(tab), NULL);
 			free_split(tab, j);
 			j++;
 		}
@@ -92,7 +94,7 @@ char	**ft_split(const char *s, char c)
 	ft_bzero(tab, sizeof(char *) * (count + 1));
 	if (!tab)
 		return (NULL);
-	ft_extractwords(tab, s, c);
+	tab = ft_extractwords(tab, s, c);
 	return (tab);
 }
 

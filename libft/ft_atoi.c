@@ -6,11 +6,11 @@
 /*   By: jmafueni <jmafueni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 22:40:20 by jmafueni          #+#    #+#             */
-/*   Updated: 2024/07/02 14:57:42 by jmafueni         ###   ########.fr       */
+/*   Updated: 2024/12/27 22:49:59 by jmafueni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 long int	ft_atoi(const char *nptr)
 {
